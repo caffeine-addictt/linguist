@@ -4,6 +4,10 @@ on:
     tags:
       - "*"
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
@@ -25,7 +29,7 @@ jobs:
       - name: Set up tags & labels
         id: set-tags
         run: |
-          if [[ "{GITHUB_REF}" == *"-"* ]]; then
+          if [[ "${GITHUB_REF}" == *"-"* ]]; then
             echo "is pre-release"
             echo "DOCKER_TAG=prerelease-${GITHUB_REF##*/}" >> $GITHUB_ENV
           else
